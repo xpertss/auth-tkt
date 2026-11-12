@@ -1,6 +1,6 @@
 package xpertss.auth.tkt;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import xpertss.threads.NewThreadExecutor;
 
 import java.security.MessageDigest;
@@ -9,32 +9,32 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.FutureTask;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DigestAlgorithmTest {
 
-   @Test(expected = MalformedTicketException.class)
+   @Test
    public void testMD5ParseInvalidLengthTicketOne()
    {
-      DigestAlgorithm.MD5.parse("aabbccddeeffgg");
+      assertThrows(MalformedTicketException.class, () -> DigestAlgorithm.MD5.parse("aabbccddeeffgg"));
    }
 
-   @Test(expected = MalformedTicketException.class)
+   @Test
    public void testMD5ParseInvalidLengthTicketTwo()
    {
-      DigestAlgorithm.MD5.parse("00112233445566778899aabbccddeeff");
+      assertThrows(MalformedTicketException.class, () -> DigestAlgorithm.MD5.parse("00112233445566778899aabbccddeeff"));
    }
 
-   @Test(expected = MalformedTicketException.class)
+   @Test
    public void testMD5ParseInvalidLengthTicketThree()
    {
-      DigestAlgorithm.MD5.parse("00112233445566778899aabbccddeeffaabbccdd");
+      assertThrows(MalformedTicketException.class, () -> DigestAlgorithm.MD5.parse("00112233445566778899aabbccddeeffaabbccdd"));
    }
 
-   @Test(expected = MalformedTicketException.class)
+   @Test
    public void testMD5ParseMissingExclamationMark()
    {
-      DigestAlgorithm.MD5.parse("00112233445566778899aabbccddeeffaabbccddcfloersch");
+      assertThrows(MalformedTicketException.class, () -> DigestAlgorithm.MD5.parse("00112233445566778899aabbccddeeffaabbccddcfloersch"));
    }
 
 
@@ -130,15 +130,15 @@ public class DigestAlgorithmTest {
       assertEquals("hjabarullah1", ticket.getUsername());
    }
 
-   @Test(expected = MalformedTicketException.class)
+   @Test
    public void testMalformedBase64EncodedTicket()
    {
-      DigestAlgorithm.MD5.parse("ZGU2NWUxMTcxY2ZkMTdhNWMyY2NiNWI4YTQwMjUwNjc1ZGY5MTUzOWhqYWJhcnVsbGFoMSFMYW5lK05vdGlmaWNhdGlvbnMsU29uYXIrU2VhcmNoLFdvcmtib29rK09WRSFIYXNzYW4rSmFiYXJ1bGxha");
+      assertThrows(MalformedTicketException.class, () -> DigestAlgorithm.MD5.parse("ZGU2NWUxMTcxY2ZkMTdhNWMyY2NiNWI4YTQwMjUwNjc1ZGY5MTUzOWhqYWJhcnVsbGFoMSFMYW5lK05vdGlmaWNhdGlvbnMsU29uYXIrU2VhcmNoLFdvcmtib29rK09WRSFIYXNzYW4rSmFiYXJ1bGxha"));
    }
 
-   @Test(expected = MalformedTicketException.class)
+   @Test
    public void testInvalidBase64EncodedTicket()
    {
-      DigestAlgorithm.MD5.parse("ZGU2NWUxMTcxY2ZkMTdhNWMyY2NiNWI4YTQwMjUwNjc1ZGY5MTUzOWhqYWJhcnVsbGFoMSFMYW5lK05vdGlmaWNhdGlvbnMsU29uYXIrU2VhcmNoLFdvcmtib29rK09WRSFIYXNzYW4rSmFiYXJ1bGxha$");
+      assertThrows(MalformedTicketException.class, () -> DigestAlgorithm.MD5.parse("ZGU2NWUxMTcxY2ZkMTdhNWMyY2NiNWI4YTQwMjUwNjc1ZGY5MTUzOWhqYWJhcnVsbGFoMSFMYW5lK05vdGlmaWNhdGlvbnMsU29uYXIrU2VhcmNoLFdvcmtib29rK09WRSFIYXNzYW4rSmFiYXJ1bGxha$"));
    }
 }

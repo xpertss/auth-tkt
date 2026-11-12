@@ -1,7 +1,7 @@
 package xpertss.auth.tkt;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import xpertss.net.NetUtils;
 import xpertss.util.Sets;
 
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.Base64;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,7 +22,7 @@ public class AuthTicketAuthenticatorTest {
    private HttpServletRequest request;
    private Cookie cookie;
 
-   @Before
+   @BeforeEach
    public void setUp()
    {
       cookie = mock(Cookie.class);
@@ -30,54 +30,54 @@ public class AuthTicketAuthenticatorTest {
 
    }
 
-   @Test(expected = TicketNotFoundException.class)
+   @Test
    public void testNoCookies()
    {
       when(request.getCookies()).thenReturn(new Cookie[0]);
       objectUnderTest = new AuthTicketAuthenticator("some_random_secret_key");
-      objectUnderTest.authenticate(request);
+      assertThrows(TicketNotFoundException.class, () -> objectUnderTest.authenticate(request));
    }
 
-   @Test(expected = TicketNotFoundException.class)
+   @Test
    public void testNoCookie()
    {
       when(cookie.getName()).thenReturn("OtherName");
       when(request.getCookies()).thenReturn(new Cookie[] { cookie });
       objectUnderTest = new AuthTicketAuthenticator("some_random_secret_key");
-      objectUnderTest.authenticate(request);
+      assertThrows(TicketNotFoundException.class, () -> objectUnderTest.authenticate(request));
    }
 
-   @Test(expected = ExpiredTicketException.class)
+   @Test
    public void testSimpleExpiredTicket()
    {
       when(cookie.getName()).thenReturn("auth_tkt");
       when(cookie.getValue()).thenReturn("00112233445566778899aabbccddeeff00000220cfloersch!data");
       when(request.getCookies()).thenReturn(new Cookie[] { cookie });
       objectUnderTest = new AuthTicketAuthenticator("some_random_secret_key");
-      objectUnderTest.authenticate(request);
+      assertThrows(ExpiredTicketException.class, () -> objectUnderTest.authenticate(request));
    }
 
-   @Test(expected = ExpiredTicketException.class)
+   @Test
    public void testUrlEncodedExpiredTicket()
    {
       when(cookie.getName()).thenReturn("auth_tkt");
       when(cookie.getValue()).thenReturn(NetUtils.urlEncode("00112233445566778899aabbccddeeff00000220cfloersch!data"));
       when(request.getCookies()).thenReturn(new Cookie[] { cookie });
       objectUnderTest = new AuthTicketAuthenticator("some_random_secret_key");
-      objectUnderTest.authenticate(request);
+      assertThrows(ExpiredTicketException.class, () -> objectUnderTest.authenticate(request));
    }
 
-   @Test(expected = ExpiredTicketException.class)
+   @Test
    public void testBase64EncodedExpiredTicket()
    {
       when(cookie.getName()).thenReturn("auth_tkt");
       when(cookie.getValue()).thenReturn(Base64.getEncoder().encodeToString("00112233445566778899aabbccddeeff00000220cfloersch!data".getBytes()));
       when(request.getCookies()).thenReturn(new Cookie[] { cookie });
       objectUnderTest = new AuthTicketAuthenticator("some_random_secret_key");
-      objectUnderTest.authenticate(request);
+      assertThrows(ExpiredTicketException.class, () -> objectUnderTest.authenticate(request));
    }
 
-   @Test(expected = InvalidTicketException.class)
+   @Test
    public void testSimpleInvalidTicket()
    {
       AuthTicketConfig config = new AuthTicketConfig("some_random_secret_key");
@@ -88,7 +88,7 @@ public class AuthTicketAuthenticatorTest {
       when(cookie.getValue()).thenReturn("00112233445566778899aabbccddeeff00000220cfloersch!data");
       when(request.getCookies()).thenReturn(new Cookie[] { cookie });
       objectUnderTest = new AuthTicketAuthenticator(config);
-      objectUnderTest.authenticate(request);
+      assertThrows(InvalidTicketException.class, () -> objectUnderTest.authenticate(request));
    }
 
    @Test // vector test
@@ -146,7 +146,7 @@ public class AuthTicketAuthenticatorTest {
       assertTrue(ticket.contains("Workbook+OVE"));
    }
 
-   @Test(expected = TokenMissingException.class)
+   @Test
    public void testSimpleInvalidTicketWithTokenAssertion()
    {
       AuthTicketConfig config = new AuthTicketConfig("some_random_secret_key");
@@ -158,10 +158,10 @@ public class AuthTicketAuthenticatorTest {
       when(cookie.getValue()).thenReturn("e400af8d8448df14b22193dfdcebe22b55ce64a9cfloersch%21Workbook%2BOVE%21Chris%2BFloersch");
       when(request.getCookies()).thenReturn(new Cookie[] { cookie });
       objectUnderTest = new AuthTicketAuthenticator(config);
-      objectUnderTest.authenticate(request);
+      assertThrows(TokenMissingException.class, () -> objectUnderTest.authenticate(request));
    }
 
-   @Test(expected = InvalidTicketException.class)
+   @Test
    public void testSimpleInvalidTicketWithRemoteIP()
    {
       AuthTicketConfig config = new AuthTicketConfig("some_random_secret_key");
@@ -173,7 +173,7 @@ public class AuthTicketAuthenticatorTest {
       when(request.getCookies()).thenReturn(new Cookie[] { cookie });
       when(request.getRemoteAddr()).thenReturn("192.168.1.12");
       objectUnderTest = new AuthTicketAuthenticator(config);
-      objectUnderTest.authenticate(request);
+      assertThrows(InvalidTicketException.class, () -> objectUnderTest.authenticate(request));
    }
 
 

@@ -25,4 +25,18 @@ project.pom.addDependency('org.xpertss/stdlib@1.1.0');
 project.pom.addDependency('org.xpertss/proximo@1.0');                 // used by AuthTicketFilter (main code)
 project.pom.addDependency('javax.servlet/servlet-api@2.5', 'provided');
 
+// Tests (F030): JUnit 5 comes with the generated pom. Mockito 5 is used through its static API
+// (mock/when/verify), not the JUnit extension, so mockito-core alone is enough.
+project.pom.addTestDependency('org.mockito/mockito-core@5.24.0');
+
+// Mockito 5 mocks through its inline agent. Without this, the JVM loads the agent dynamically and warns
+// (and a future JDK will refuse). maven-dependency-plugin's `properties` goal publishes the jar path of
+// every dependency as ${group:artifact:jar}; surefire then starts the JVM with Mockito as a javaagent.
+project.pom.addPlugin('org.apache.maven.plugins/maven-dependency-plugin@3.11.0', {
+  executions: [{ id: 'mockito-agent-path', goals: ['properties'] }],
+});
+project.pom.addPlugin('org.apache.maven.plugins/maven-surefire-plugin@3.6.0', {
+  configuration: { argLine: '-javaagent:${org.mockito:mockito-core:jar}' },
+});
+
 project.synth();

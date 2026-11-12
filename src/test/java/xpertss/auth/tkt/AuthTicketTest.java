@@ -1,9 +1,9 @@
 package xpertss.auth.tkt;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import xpertss.util.Sets;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Copyright 2015 XpertSoftware
@@ -89,34 +89,34 @@ public class AuthTicketTest {
       assertFalse(ticket.containsAny(Sets.of("marketing", "sale")));
    }
 
-   @Test(expected = NullPointerException.class)
+   @Test
    public void testCreateNullChecksum()
    {
-      EncodedAuthTicket.create(null, 100, "cfloersch", "", "Chris");
+      assertThrows(NullPointerException.class, () -> EncodedAuthTicket.create(null, 100, "cfloersch", "", "Chris"));
    }
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test
    public void testCreateEmptyChecksum()
    {
-      EncodedAuthTicket.create(new byte[0], 100, "cfloersch", "", "Chris");
+      assertThrows(IllegalArgumentException.class, () -> EncodedAuthTicket.create(new byte[0], 100, "cfloersch", "", "Chris"));
    }
 
-   @Test(expected = NullPointerException.class)
+   @Test
    public void testCreateNullUserData()
    {
-      EncodedAuthTicket.create(checksum, 100, "cfloersch", "", null);
+      assertThrows(NullPointerException.class, () -> EncodedAuthTicket.create(checksum, 100, "cfloersch", "", null));
    }
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test
    public void testCreateNullUid()
    {
-      EncodedAuthTicket.create(checksum, 100, null, "", "Chris");
+      assertThrows(IllegalArgumentException.class, () -> EncodedAuthTicket.create(checksum, 100, null, "", "Chris"));
    }
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test
    public void testCreateEmptyUid()
    {
-      EncodedAuthTicket.create(checksum, 100, "", "", "Chris");
+      assertThrows(IllegalArgumentException.class, () -> EncodedAuthTicket.create(checksum, 100, "", "", "Chris"));
    }
 
 }

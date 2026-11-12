@@ -6,56 +6,57 @@
  */
 package xpertss.auth.tkt;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 
-import static org.mockito.Matchers.eq;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class BasicConfigTest {
 
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test
    public void testMissingSecret() throws ServletException
    {
       FilterConfig config = mock(FilterConfig.class);
       AuthTicketFilter objectUnderTest = new AuthTicketFilter();
-      objectUnderTest.init(config);
+      assertThrows(IllegalArgumentException.class, () -> objectUnderTest.init(config));
    }
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test
    public void testMissingAuthUrl() throws ServletException
    {
       FilterConfig config = mock(FilterConfig.class);
       when(config.getInitParameter(eq("TKTAuthSecret"))).thenReturn("some_random_secret_key");
       AuthTicketFilter objectUnderTest = new AuthTicketFilter();
-      objectUnderTest.init(config);
+      assertThrows(IllegalArgumentException.class, () -> objectUnderTest.init(config));
    }
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test
    public void testInvalidAuthUrl() throws ServletException
    {
       FilterConfig config = mock(FilterConfig.class);
       when(config.getInitParameter(eq("TKTAuthSecret"))).thenReturn("some_random_secret_key");
       when(config.getInitParameter(eq("TKTAuthLoginURL"))).thenReturn("hello kitty");
       AuthTicketFilter objectUnderTest = new AuthTicketFilter();
-      objectUnderTest.init(config);
+      assertThrows(IllegalArgumentException.class, () -> objectUnderTest.init(config));
    }
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test
    public void testFtpAuthUrl() throws ServletException
    {
       FilterConfig config = mock(FilterConfig.class);
       when(config.getInitParameter(eq("TKTAuthSecret"))).thenReturn("some_random_secret_key");
       when(config.getInitParameter(eq("TKTAuthLoginURL"))).thenReturn("ftp://ftp.manheim.com/");
       AuthTicketFilter objectUnderTest = new AuthTicketFilter();
-      objectUnderTest.init(config);
+      assertThrows(IllegalArgumentException.class, () -> objectUnderTest.init(config));
    }
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test
    public void testInvalidDuration() throws ServletException
    {
       FilterConfig config = mock(FilterConfig.class);
@@ -63,7 +64,7 @@ public class BasicConfigTest {
       when(config.getInitParameter(eq("TKTAuthLoginURL"))).thenReturn("https://www.manheim.com/login");
       when(config.getInitParameter(eq("TKTAuthTimeout"))).thenReturn("hello");
       AuthTicketFilter objectUnderTest = new AuthTicketFilter();
-      objectUnderTest.init(config);
+      assertThrows(IllegalArgumentException.class, () -> objectUnderTest.init(config));
    }
 
 }

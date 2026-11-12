@@ -1,7 +1,7 @@
 package xpertss.auth.tkt;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import xpertss.net.NetUtils;
 
 import javax.servlet.FilterChain;
@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -33,7 +33,7 @@ public class CustomBackUrlUseCaseTest {
    private FilterChain chain;
    private Cookie cookie;
 
-   @Before
+   @BeforeEach
    public void setUp()
       throws ServletException
    {
