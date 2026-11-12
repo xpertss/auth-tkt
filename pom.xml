@@ -1,224 +1,239 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-   <modelVersion>4.0.0</modelVersion>
-
-   <groupId>org.xpertss</groupId>
-   <artifactId>auth-tkt</artifactId>
-   <version>2.0.5-SNAPSHOT</version>
-
-   <name>${project.groupId}:${project.artifactId}</name>
-   <description>Servlet Filter that implements the ModAuthTkt functionality in Java</description>
-   <url>https://github.com/cfloersch/AuthTicket</url>
-
-   <developers>
-      <developer>
-         <name>Chris Floersch</name>
-         <url>https://github.com/cfloersch</url>
-         <organization>Xpert Solution Services</organization>
-         <organizationUrl>http://www.xpertss.org</organizationUrl>
-         <roles>
-            <role>architect</role>
-            <role>developer</role>
-         </roles>
-         <timezone>America/New_York</timezone>
-      </developer>
-   </developers>
-   
-   <licenses>
-      <license>
-         <name>GNU General Public License, Version 2.0</name>
-         <url>https://www.gnu.org/licenses/gpl-2.0.html</url>
-         <distribution>repo</distribution>
-      </license>
-   </licenses>
-
-
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.xpertss</groupId>
+    <artifactId>auth-tkt</artifactId>
+    <version>${revision}</version>
+    <name>auth-tkt</name>
+    <description>Servlet Filter that implements the ModAuthTkt functionality in Java</description>
+    <url>https://github.com/xpertss/auth-tkt</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://spdx.org/licenses/MIT.html</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Chris Floersch</name>
+            <url>https://github.com/cfloersch</url>
+            <organization>Xpert Solution Services</organization>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://github.com/xpertss/auth-tkt</url>
+        <connection>scm:git:git://github.com/xpertss/auth-tkt.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/xpertss/auth-tkt.git</developerConnection>
+    </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>21</maven.compiler.release>
+        <revision>3.0.0-SNAPSHOT</revision>
     </properties>
-
-   <build>
-
-       <testResources>
-           <testResource>
-               <directory>src/test/resources</directory>
-           </testResource>
-       </testResources>
-
-
-      <plugins>
-         <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.8</version>
-            <extensions>true</extensions>
-            <configuration>
-               <serverId>ossrh</serverId>
-               <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-               <autoReleaseAfterClose>true</autoReleaseAfterClose>
-            </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>2.3.2</version>
-            <configuration>
-               <source>1.8</source>
-               <target>1.8</target>
-            </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>2.3.1</version>
-            <configuration>
-               <archive>
-                  <addMavenDescriptor>false</addMavenDescriptor>
-                  <index>true</index>
-               </archive>
-            </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.4.3</version>
-            <configuration>
-               <nonFilteredFileExtensions>
-                  <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
-                  <nonFilteredFileExtension>au</nonFilteredFileExtension>
-                  <nonFilteredFileExtension>swf</nonFilteredFileExtension>
-                  <nonFilteredFileExtension>wav</nonFilteredFileExtension>
-                  <nonFilteredFileExtension>mp3</nonFilteredFileExtension>
-                  <nonFilteredFileExtension>aac</nonFilteredFileExtension>
-               </nonFilteredFileExtensions>
-            </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-release-plugin</artifactId>
-            <version>2.5.3</version>
-            <configuration>
-               <autoVersionSubmodules>true</autoVersionSubmodules>
-               <useReleaseProfile>false</useReleaseProfile>
-               <releaseProfiles>release</releaseProfiles>
-               <goals>deploy</goals>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
-
-
-   <dependencies>
-      <dependency>
-         <groupId>org.xpertss</groupId>
-         <artifactId>stdlib</artifactId>
-         <version>1.1.0</version>
-      </dependency>
-      <dependency>
-         <groupId>org.xpertss</groupId>
-         <artifactId>proximo</artifactId>
-         <version>1.0</version>
-      </dependency>
-
-      <dependency>
-         <groupId>javax.servlet</groupId>
-         <artifactId>servlet-api</artifactId>
-         <version>2.5</version>
-         <scope>provided</scope>
-      </dependency>
-
-
-      <dependency>
-         <groupId>junit</groupId>
-         <artifactId>junit</artifactId>
-         <version>4.6</version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.mockito</groupId>
-         <artifactId>mockito-all</artifactId>
-         <version>1.8.2</version>
-         <scope>test</scope>
-      </dependency>
-   </dependencies>
-
-
-
-
-   <!-- Necessary for sonatype OSS repo deployment -->
-
-   <distributionManagement>
-      <snapshotRepository>
-         <id>ossrh</id>
-         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      </snapshotRepository>
-   </distributionManagement>
-
-
-   <scm>
-      <url>https://github.com/cfloersch/AuthTicket</url>
-      <connection>scm:git:git://git@github.com/cfloersch/AuthTicket.git</connection>
-      <developerConnection>scm:git:git@github.com:cfloersch/AuthTicket.git</developerConnection>
-      <tag>HEAD</tag>
-   </scm>
-
-
-   <profiles>
-      <profile>
-         <id>release</id>
-         <build>
-            <plugins>
-               <plugin>
-                  <artifactId>maven-source-plugin</artifactId>
-                  <version>2.0.4</version>
-                  <configuration><attach>true</attach></configuration>
-                  <executions>
-                     <execution>
-                        <id>attach-sources</id>
-                        <phase>package</phase>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>6.1.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xpertss</groupId>
+            <artifactId>stdlib</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xpertss</groupId>
+            <artifactId>proximo</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.16.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.6.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>integration-tests</id>
                         <goals>
-                           <goal>jar</goal>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
                         </goals>
-                     </execution>
-                  </executions>
-               </plugin>
-               <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-javadoc-plugin</artifactId>
-                  <version>2.9.1</version>
-                  <configuration>
-                     <aggregate>true</aggregate>
-                     <links><link>http://docs.oracle.com/javase/8/docs/api/</link></links>
-                     <encoding>UTF-8</encoding>
-                  </configuration>
-                  <executions>
-                     <execution>
-                        <id>attach-javadocs</id>
-                        <goals><goal>jar</goal></goals>
-                     </execution>
-                  </executions>
-               </plugin>
-               <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-gpg-plugin</artifactId>
-                  <version>1.5</version>
-                  <executions>
-                     <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <rules>
+                        <requireMavenVersion>
+                            <version>[3.9,)</version>
+                        </requireMavenVersion>
+                        <requireJavaVersion>
+                            <version>[21,)</version>
+                        </requireJavaVersion>
+                    </rules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
                         <goals>
-                           <goal>sign</goal>
+                            <goal>enforce</goal>
                         </goals>
-                     </execution>
-                  </executions>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
-   </profiles>
-
-
-   <!-- https://central.sonatype.org/pages/apache-maven.html -->
-
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.12.0</version>
+                <executions>
+                    <execution>
+                        <id>check-javadoc</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>javadoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <autoPublish>true</autoPublish>
+                <waitUntil>validated</waitUntil>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.4.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.12.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
+                        <version>1.8.0</version>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
+                            <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>flatten</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>flatten</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>flatten-clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.8</version>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.12.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
+<!-- ~~ Generated by projen. To modify, edit .projenrc.ts and run "npx projen". -->
