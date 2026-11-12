@@ -53,7 +53,6 @@ import static xpertss.proximo.Proximo.doReturn;
  *    <dd>The secret key used for digest hashing. This should be kept secret and changed
  *        periodically and should be the same used to create the ticket. The longer the
  *        better. e.g.
- *        <p>
  *        <pre>TKTAuthSecret  {@code m2z#b&&2hd5zFev-b=Ham9_!=R74y-F44x&a6BnPEK!kQ&qz}</pre>
  *    </dd>
  *
@@ -67,21 +66,18 @@ import static xpertss.proximo.Proximo.doReturn;
  *        <p>
  *        The default is likely to change in a future version, so setting the digest type
  *        explicitly is encouraged.
- *        <p>
  *        <pre>TKTAuthDigestType MD5</pre>
  *    </dd>
  *
  *    <dt>TKTAuthLoginURL &lt;url&gt;</dt>
  *    <dd>Standard URL to which unauthenticated users are redirected. This is a required
  *        directive. e.g.
- *        <p>
  *        <pre>TKTAuthLoginURL https://www.example.com/auth/login.cgi</pre>
  *    </dd>
  *
  *    <dt>TKTAuthTimeoutURL &lt;url&gt;</dt>
  *    <dd>URL to which users are redirected in the event their ticket times out. Default:
  *        TKTAuthLoginURL. e.g.
- *        <p>
  *        <pre>TKTAuthTimeoutURL https://www.example.com/auth/login.cgi?timeout=1</pre>
  *    </dd>
  *
@@ -90,14 +86,12 @@ import static xpertss.proximo.Proximo.doReturn;
  *        POST operation. This case is distinguished to allow you to handle such cases
  *        specially - you probably don't want to redirect back to the referrer after login,
  *        for instance. Default: TKTAuthTimeoutURL. e.g.
- *        <p>
  *        <pre>TKTAuthPostTimeoutURL https://www.example.com/auth/login.cgi?timeout=2</pre>
  *    </dd>
  *
  *    <dt>TKTAuthUnauthURL  &lt;url&gt;</dt>
  *    <dd>URL to which users are redirected in the event that they are not authorised for a
  *        particular area e.g. incorrect tokens.
- *        <p>
  *        <pre>TKTAuthUnauthURL https://www.example.com/auth/login.cgi?unauth=1</pre>
  *    </dd>
  *
@@ -106,7 +100,6 @@ import static xpertss.proximo.Proximo.doReturn;
  *        authenticated anyway as a 'guest' user. This is useful for allowing public access
  *        for guests and robots, while allowing more personalised or privileged access for
  *        users who login. Default: off. e.g.
- *        <p>
  *        <pre>TKTAuthGuestLogin on</pre>
  *    </dd>
  *
@@ -114,7 +107,6 @@ import static xpertss.proximo.Proximo.doReturn;
  *    <dd>Flag to indicate that a timed out user ticket should automatically fallback to
  *        'guest' status instead of redirecting to the TKTAuthTimeoutURL. Only makes sense
  *        with TKTAuthGuestLogin on, of course. Default: off. e.g.
- *        <p>
  *        <pre>TKTAuthGuestFallback on</pre>
  *    </dd>
  *
@@ -131,7 +123,6 @@ import static xpertss.proximo.Proximo.doReturn;
  *        as it allows for trivial replay attacks.
  *        <p>
  *        Default: 2h. Examples:
- *        <p>
  *        <pre>
  *           TKTAuthTimeout 86400
  *           TKTAuthTimeout 86400s
@@ -143,7 +134,6 @@ import static xpertss.proximo.Proximo.doReturn;
  *
  *    <dt>TKTAuthCookieName &lt;name&gt;</dt>
  *    <dd>The name used for the ticket cookie. Default: 'auth_tkt'.
- *        <p>
  *        <pre>TKTAuthCookieName MyCookieName</pre>
  *    </dd>
  *
@@ -152,12 +142,10 @@ import static xpertss.proximo.Proximo.doReturn;
  *        a GET parameter to all redirect URLs containing a URI-escaped version of the current
  *        requested page e.g. if the requested page is http://www.example.com/index.html and
  *        TKTAuthBackArgName is set to 'back', AuthTicketFilter will add a parameter like:
- *        <p>
  *        <pre>back=http%3A%2F%2Fwww.example.com%2Findex.html</pre>
  *        <p>
  *        to the TKTAuthLoginURL it redirects to, allowing your login script to redirect back
  *        to the requested page upon successful login. Default: 'back'.
- *        <p>
  *        <pre>TKTAuthBackArgName previous</pre>
  *    </dd>
  *
@@ -168,7 +156,6 @@ import static xpertss.proximo.Proximo.doReturn;
  *        redirect to the TKTAuthUnauthURL location (or TKTAuthLoginURL if not set). Your login
  *        script is expected to set the appropriate token list up at login time, of course.
  *        Default: none. e.g.
- *        <p>
  *        <pre>TKTAuthToken  finance,admin</pre>
  *    </dd>
  *
@@ -183,7 +170,6 @@ import static xpertss.proximo.Proximo.doReturn;
  *        be enabled where appropriate.
  *        <p>
  *        Default: 'on' i.e. ticket is valid from any originating IP address. e.g.
- *        <p>
  *        <pre>TKTAuthIgnoreIP off</pre>
  *    </dd>
  * </dl>
@@ -206,11 +192,18 @@ import static xpertss.proximo.Proximo.doReturn;
  * <p>
  * Access to the userId is provided via a call to {@link HttpServletRequest#getRemoteUser()}.
  * <p>
- * Access to the UserData can be retrieved from the request attribute <tt>TKTAuthUserData</tt>.
+ * Access to the UserData can be retrieved from the request attribute {@code TKTAuthUserData}.
  * <p>
  * {@link HttpServletRequest#getAuthType()} will return <B>AUTH_TKT</B>
  */
 public class AuthTicketFilter implements Filter {
+
+   /**
+    * Creates a filter. The servlet container instantiates it and then calls
+    * {@link #init(FilterConfig)} with the configured init-params.
+    */
+   public AuthTicketFilter() {
+   }
 
 /*
  * Source

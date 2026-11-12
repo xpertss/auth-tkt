@@ -22,7 +22,7 @@ import static xpertss.lang.Bytes.toHexString;
  * AuthTicket.
  * <p>
  * From the specification
- * <p><pre>
+ * <pre>
  * 1.5 The basic format of the ticket / authentication cookie value is as follows:
  *
  *    ('+' is concatenation operation)

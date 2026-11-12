@@ -12,7 +12,7 @@ import java.util.Set;
  * A basic interface for AuthTicket data and functionality.
  * <p>
  * From the specification
- * <p><pre>
+ * <pre>
  * 1.5 The basic format of the ticket / authentication cookie value is as follows:
  *
  *    ('+' is concatenation operation)

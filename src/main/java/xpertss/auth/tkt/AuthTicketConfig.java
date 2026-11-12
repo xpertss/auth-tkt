@@ -125,6 +125,8 @@ public class AuthTicketConfig {
    /**
     * Number of seconds to timeout the token. This defaults to 7200 seconds or
     * 2 hours.
+    *
+    * @param timeout the timeout in seconds; zero disables the timeout
     */
    public void setTimeout(long timeout) {
       this.timeout = Numbers.gte(0L, timeout, "timeout must be positive");

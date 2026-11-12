@@ -43,11 +43,21 @@ public final class AuthTicketAuthenticator {
    private final AuthTicketConfig config;
    private final AuthTicketEncoder encoder;
 
+   /**
+    * Creates an authenticator that uses the default configuration for the given secret.
+    *
+    * @param secret the shared secret used to compute the ticket's checksum
+    */
    public AuthTicketAuthenticator(String secret)
    {
       this(new AuthTicketConfig(secret));
    }
 
+   /**
+    * Creates an authenticator that uses the given configuration.
+    *
+    * @param config the configuration to authenticate tickets against
+    */
    public AuthTicketAuthenticator(AuthTicketConfig config)
    {
       this.config = Objects.notNull(config);

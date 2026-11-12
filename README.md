@@ -1,4 +1,4 @@
-First# AuthTicket
+# AuthTicket
 Java Servlet Filter implementation of the Apache mod_auth_tkt SSO
 
 
@@ -11,6 +11,31 @@ Maven Central Repository
     <version>2.0.4</version>
 </dependency>
 ```
+
+
+Requirements
+------------
+
+* Java 21 or newer (as of 3.0.0; the 2.x line supports Java 8)
+* A servlet container providing the `javax.servlet` 2.5+ API (the filter is declared
+  `provided`; it has not moved to `jakarta.servlet`)
+
+License
+-------
+
+MIT. See [LICENSE](LICENSE). Versions up to and including 2.0.4 were published under
+GPL-2.0 and remain available under that license.
+
+
+Upgrading from 2.x
+------------------
+
+* The build baseline is Java 21. Applications still on Java 8 through 17 must stay on 2.0.4.
+* The license changed from GPL-2.0 to MIT.
+* The API, the filter class (`xpertss.auth.tkt.AuthTicketFilter`), its init-params, and the
+  Maven coordinates (`org.xpertss:auth-tkt`) are unchanged. The `javax.servlet` API is still used.
+* The exception classes now declare a `serialVersionUID`, so exceptions serialized by 2.x
+  are not deserializable by 3.x.
 
 
 Simple Usage:

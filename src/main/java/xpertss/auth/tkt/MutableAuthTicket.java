@@ -23,7 +23,6 @@ import java.util.Set;
  * <p>
  * A MutableAuthTicket has no Message Authentication Code (MAC) checksum and can not be
  * used directly for authentication. You must encode the ticket before it can used:
- * <p>
  * <pre>
  *    {@code
  *       MutableAuthTicket ticket = new MutableAuthTicket("jblow");

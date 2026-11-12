@@ -23,7 +23,14 @@ import static xpertss.lang.Bytes.fromHexString;
 public enum DigestAlgorithm {
 
 
-   MD5(16, "MD5"), SHA256(32, "SHA-256"), SHA512(64, "SHA-512");
+   /** 128 bit MD5 digest (16 byte checksum). */
+   MD5(16, "MD5"),
+
+   /** 256 bit SHA-2 digest (32 byte checksum). */
+   SHA256(32, "SHA-256"),
+
+   /** 512 bit SHA-2 digest (64 byte checksum). */
+   SHA512(64, "SHA-512");
 
    private static final Pattern BASE64 = Pattern.compile("^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$");
 

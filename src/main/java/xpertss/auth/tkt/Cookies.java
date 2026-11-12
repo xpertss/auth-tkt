@@ -8,7 +8,17 @@ package xpertss.auth.tkt;
 
 import javax.servlet.http.Cookie;
 
+/**
+ * Utility methods for working with servlet cookies.
+ */
 public class Cookies {
+
+   /**
+    * Creates a Cookies utility. All methods are static; there is normally no need
+    * to create an instance.
+    */
+   public Cookies() {
+   }
 
    /**
     * This will return the named cookie or null if the cookie is not found.
